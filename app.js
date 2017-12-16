@@ -22,6 +22,17 @@ app.use(cookieParser());
 
 app.use(express.static("dist"));
 
+app.get("/", function(req,res) {
+  res.render("index");
+});
+
+app.use(require("./lib/auth.js")(app));
+
+app.get("/dashboard", function(req, res) {
+  res.render("dashboard");
+});
+
+
 const port = process.env.PORT||3000;
 
 app.listen(port, function() {
