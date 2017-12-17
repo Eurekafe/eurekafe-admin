@@ -30,5 +30,15 @@ module.exports = function(dbclient) {
     });
   });
 
+  router.post("/search", function(req, res) {
+    var regex = new RegExp(req.body.string);
+    dbclient.then(function(db) {
+      db.collection("newsletter").find({email: {$regex: regex}}).toArray(function(err, results) {
+        console.log(results);
+        res.render("search", {results});
+      });
+    });
+  });
+
   return router;
 };

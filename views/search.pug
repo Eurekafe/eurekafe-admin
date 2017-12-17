@@ -1,0 +1,15 @@
+extends ../templates/layout.pug
+
+block body
+	div.container
+		div.row.text-center
+			h1.col Newsletter search result
+		div.row
+			ul.col
+				unless results[0]
+					li: em aucun résultats
+				each result in results
+					li
+						p #{result.email}&nbsp;
+							a(href="newsletter/del/" + result._id) supprimer
+		
