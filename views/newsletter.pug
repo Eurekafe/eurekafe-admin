@@ -1,16 +1,10 @@
-doctype html
-html
-	head
-		title eure-admin
-		meta(charset="utf-8")
-		link(rel="stylesheet" type="text/css" href="/index.style.css")
-	body
-		div.container
-			div.row.text-center
-				h1.col Newsletter
-			row
-				ul.col
-					each email in emails
-						li= email
+extends ../templates/layout.pug
 
-		script(src="/index.js")
+block body
+	div.container
+		div.row.text-center
+			h1.col Newsletter
+		row
+			ul.col
+				each email in emails
+					li= email

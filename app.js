@@ -25,10 +25,6 @@ app.use(cookieParser());
 
 app.use(express.static("dist"));
 
-app.get("/", function(req,res) {
-  res.render("index");
-});
-
 var expressSession = session({
   secret: "just another secret",
   resave: true,
@@ -63,7 +59,13 @@ if(process.env.FACEBOOK_ID && process.env.FACEBOOK_SECRET) {
   })); 
 }
 
-
+app.get("/", function(req,res) {
+  if(req.user) {
+    res.redirect("/dashboard");
+  } else {
+    res.render("index");
+  }
+});
 
 app.get("/auth", passport.authenticate(
   "facebook", 
@@ -81,7 +83,7 @@ app.get(
   }
 );
 
-/*
+
 app.use(function(req, res, next) {
   if(req.user) {
     next();
@@ -90,7 +92,12 @@ app.use(function(req, res, next) {
     res.redirect("/");
   }
 });
-*/
+
+
+app.get("/logout", function(req, res) {
+  req.logout();
+  res.redirect("/");
+});
 
 const url = process.env.MONGO_CRED;
 var MongoClient = require("mongodb").MongoClient;
