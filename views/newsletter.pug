@@ -4,7 +4,14 @@ block body
 	div.container
 		div.row.text-center
 			h1.col Newsletter
-		row
-			ul.col
-				each email in emails
-					li= email
+		div.row
+			ul.col-6
+				each subs in data
+					li
+						p #{subs.email}&nbsp;
+							a(href="newsletter/del/" + subs._id) supprimer
+			div.col-6
+				h2 Ajout manuel:
+				form(method="post" action="/newsletter/create")
+					input(type="text" name="email")
+					input(type="submit")

@@ -7,11 +7,11 @@ require("dotenv").config();
 
 const express = require("express");
 const morgan = require("morgan");
-var cookieParser = require("cookie-parser");
-var bodyParser = require("body-parser");
-var session = require("express-session");
-var passport = require("passport");
-var facebookStrat = require("passport-facebook").Strategy;
+const cookieParser = require("cookie-parser");
+const bodyParser = require("body-parser");
+const session = require("express-session");
+const passport = require("passport");
+const facebookStrat = require("passport-facebook").Strategy;
 
 const app = express();
 
@@ -37,12 +37,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser(function(user, cb) {
-  //require("../lib/facebook.js")(user.accessToken);
-  return cb(null, user);
+  cb(null, user);
 });
 passport.deserializeUser(function(user, done) {
-  //console.log(user, "deserialized");
-  return done(null, user);
+  done(null, user);
 });
 
 if(process.env.FACEBOOK_ID && process.env.FACEBOOK_SECRET) {
@@ -95,7 +93,7 @@ app.use(function(req, res, next) {
 
 
 app.get("/logout", function(req, res) {
-  req.logout();
+  req.logOut();
   res.redirect("/");
 });
 
@@ -113,6 +111,10 @@ var dbclient = new Promise(function(resolve, reject) {
   });
 });
 
+const newsletter = require("./routes/newsletter.js")(dbclient);
+
+app.use("/newsletter", newsletter);
+
 app.get("/dashboard", function(req, res) {
   dbclient.then(function(db) {
     Promise.all([
@@ -123,26 +125,11 @@ app.get("/dashboard", function(req, res) {
       data.email = result[0].email;
       data.count = result[1];
       res.render("dashboard", data);
-    }, function(err) {
-      console.log(err);
+    }, function() {
+      res.render("/error");
     });
   });
 });
-
-app.get("/newsletter", function(req, res) {
-  dbclient.then(function(db) {
-    db.collection("newsletter").find().toArray(function(err, data) {
-      if(err) console.log(err);
-      let emails = data.reduce(function(acc, next) {
-        acc.push(next.email);
-        return acc;
-      }, []);
-      console.log(emails);
-      res.render("newsletter", {emails});
-    });
-  });
-});
-
 
 const port = process.env.PORT||3000;
 
