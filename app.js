@@ -81,7 +81,7 @@ app.get(
   }
 );
 
-
+/*
 app.use(function(req, res, next) {
   if(req.user) {
     next();
@@ -90,7 +90,7 @@ app.use(function(req, res, next) {
     res.redirect("/");
   }
 });
-
+*/
 
 const url = process.env.MONGO_CRED;
 var MongoClient = require("mongodb").MongoClient;
@@ -118,6 +118,20 @@ app.get("/dashboard", function(req, res) {
       res.render("dashboard", data);
     }, function(err) {
       console.log(err);
+    });
+  });
+});
+
+app.get("/newsletter", function(req, res) {
+  dbclient.then(function(db) {
+    db.collection("newsletter").find().toArray(function(err, data) {
+      if(err) console.log(err);
+      let emails = data.reduce(function(acc, next) {
+        acc.push(next.email);
+        return acc;
+      }, []);
+      console.log(emails);
+      res.render("newsletter", {emails});
     });
   });
 });
