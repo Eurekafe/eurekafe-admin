@@ -3,7 +3,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const ExtractTextPlugin = require ("extract-text-webpack-plugin");
-const HtmlWebpackPlugin = require ("html-webpack-plugin");
+//const HtmlWebpackPlugin = require ("html-webpack-plugin");
 const CleanWebpackPlugin = require ("clean-webpack-plugin");
 
 module.exports = {
@@ -41,7 +41,7 @@ module.exports = {
   },
   plugins: [
     new ExtractTextPlugin("/[name].style.css"),
-    new HtmlWebpackPlugin({filename: "index.html", template: "./src/index.pug"}),
+    //new HtmlWebpackPlugin({filename: "index.html", template: "./src/index.pug"}),
     new CleanWebpackPlugin(["dist"]),
     new webpack.ProvidePlugin({
       $: "jquery",

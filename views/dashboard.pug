@@ -1,6 +1,14 @@
 doctype html
 html
 	head
+		link(rel="stylesheet" type="text/css" href="/index.style.css")
 	body
-		h1 dashboard
-		
+		h1.text-center dashboard
+		div.container
+			div.row
+				div.col.bg-light
+					h2 Newsletter
+					p Nombre d'inscrit:  #{count}
+					p Dernier inscrit:  #{email}
+					button.btn.btn-primary.mx-auto(onclick="window.location = '/newsletter'") Plus
+					
