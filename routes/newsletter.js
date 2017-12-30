@@ -4,8 +4,8 @@ var ObjectID= require("mongodb").ObjectID;
 module.exports = function(dbclient) {
 
   router.get("/", function(req, res) {
-    dbclient.then(function(db) {
-      db.collection("newsletter").find().toArray(function(err, data) {
+    dbclient.then(function(client) {
+      client.db("eurekafe").collection("newsletter").find().toArray(function(err, data) {
         if(err) res.redirect("/error");
         res.render("newsletter", {data});
       });
@@ -13,8 +13,8 @@ module.exports = function(dbclient) {
   });
 
   router.get("/del/:userId", function(req, res) {
-    dbclient.then(function(db) {
-      db.collection("newsletter").remove({_id: ObjectID(req.params.userId)}, function(err) {
+    dbclient.then(function(client) {
+      client.db("eurekafe").collection("newsletter").remove({_id: ObjectID(req.params.userId)}, function(err) {
         if(err) res.redirect("/error");
         res.redirect("/newsletter");
       });
@@ -22,8 +22,8 @@ module.exports = function(dbclient) {
   });
 
   router.post("/create", function(req, res) {
-    dbclient.then(function(db) {
-      db.collection("newsletter").insertOne({email: req.body.email}, function(err) {
+    dbclient.then(function(client) {
+      client.db("eurekafe").collection("newsletter").insertOne({email: req.body.email}, function(err) {
         if(err) res.redirect("/error");
         res.redirect("/newsletter");
       });
@@ -32,9 +32,8 @@ module.exports = function(dbclient) {
 
   router.post("/search", function(req, res) {
     var regex = new RegExp(req.body.string);
-    dbclient.then(function(db) {
-      db.collection("newsletter").find({email: {$regex: regex}}).toArray(function(err, results) {
-        console.log(results);
+    dbclient.then(function(client) {
+      client.db("eurekafe").collection("newsletter").find({email: {$regex: regex}}).toArray(function(err, results) {
         res.render("search", {results});
       });
     });

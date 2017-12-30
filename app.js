@@ -97,37 +97,31 @@ app.get("/logout", function(req, res) {
   res.redirect("/");
 });
 
+
+
 const url = process.env.MONGO_CRED;
 var MongoClient = require("mongodb").MongoClient;
-var dbclient = new Promise(function(resolve, reject) {
-  MongoClient.connect(url, function(err, client) {
-    if (err) {
-      reject(err);
-    }
-    else {
-      const db = client.db("eurekafe");
-      resolve(db);
-    }
-  });
-});
+
+var dbclient = MongoClient.connect(url);
 
 const newsletter = require("./routes/newsletter.js")(dbclient);
 
 app.use("/newsletter", newsletter);
 
 app.get("/dashboard", function(req, res) {
-  dbclient.then(function(db) {
-    Promise.all([
-      db.collection("newsletter").findOne({}, {sort:{$natural: -1}}),
-      db.collection("newsletter").count()
-    ]).then(function(result) {
-      var data = {};
-      data.email = result[0].email;
-      data.count = result[1];
-      res.render("dashboard", data);
-    }, function() {
-      res.render("/error");
-    });
+  console.log(dbclient);
+  dbclient.then(function(client) {
+    return Promise.all([
+      client.db("eurekafe").collection("newsletter").findOne({}, {sort:{$natural: -1}}),
+      client.db("eurekafe").collection("newsletter").count()
+    ]);
+  }).then(function(result) {
+    var data = {};
+    data.email = result[0].email;
+    data.count = result[1];
+    res.render("dashboard", data);
+  }, function() {
+    res.render("/error");
   });
 });
 
