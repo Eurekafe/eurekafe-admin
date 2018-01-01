@@ -5,6 +5,7 @@
 
 require("dotenv").config();
 
+const request = require("request");
 const express = require("express");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
@@ -81,6 +82,9 @@ app.get(
   }
 );
 
+const frequentation = require("./routes/frequentation.js");
+
+app.use("/freq", frequentation);
 
 app.use(function(req, res, next) {
   if(req.user) {
@@ -91,13 +95,10 @@ app.use(function(req, res, next) {
   }
 });
 
-
 app.get("/logout", function(req, res) {
   req.logOut();
   res.redirect("/");
 });
-
-
 
 const url = process.env.MONGO_CRED;
 var MongoClient = require("mongodb").MongoClient;
@@ -109,7 +110,6 @@ const newsletter = require("./routes/newsletter.js")(dbclient);
 app.use("/newsletter", newsletter);
 
 app.get("/dashboard", function(req, res) {
-  console.log(dbclient);
   dbclient.then(function(client) {
     return Promise.all([
       client.db("eurekafe").collection("newsletter").findOne({}, {sort:{$natural: -1}}),
