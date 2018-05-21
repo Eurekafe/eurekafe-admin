@@ -60,7 +60,7 @@ if(process.env.FACEBOOK_ID && process.env.FACEBOOK_SECRET) {
 
 app.get("/", function(req,res) {
   if(req.user) {
-    res.redirect("/dashboard");
+    res.redirect("/main/dashboard");
   } else {
     res.render("index");
   }
@@ -78,7 +78,7 @@ app.get(
     {failureRedirect: "fail"}
   ), 
   function(req, res) {
-    res.redirect("/dashboard");
+    res.redirect("/main/dashboard");
   }
 );
 
@@ -106,24 +106,21 @@ var MongoClient = require("mongodb").MongoClient;
 var dbclient = MongoClient.connect(url);
 
 const newsletter = require("./routes/newsletter.js")(dbclient);
-
 app.use("/newsletter", newsletter);
 
+const articles = require("./routes/articles.js")(dbclient);
+app.use("/articles", articles);
+
+const event = require("./routes/events.js")(dbclient);
+app.use("/events", event);
+
 app.get("/dashboard", function(req, res) {
-  dbclient.then(function(client) {
-    return Promise.all([
-      client.db("eurekafe").collection("newsletter").findOne({}, {sort:{$natural: -1}}),
-      client.db("eurekafe").collection("newsletter").count()
-    ]);
-  }).then(function(result) {
-    var data = {};
-    data.email = result[0].email;
-    data.count = result[1];
-    res.render("dashboard", data);
-  }, function() {
-    res.render("/error");
-  });
+  res.render("main");
 });
+
+const main = require("./routes/main.js");
+
+app.use("/main", main);
 
 const port = process.env.PORT||3000;
 

@@ -5,7 +5,9 @@
     "node": true,
     "mocha": true
   },
-  "extends": "eslint:recommended",
+  "extends": [ 
+    "eslint:recommended", 
+    "plugin:react/recommended" ],
   "parserOptions": {
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
@@ -36,6 +38,8 @@
     "$": true,
     "jquery": true,
     "window": true,
-    "document": true
+    "document": true,
+    "React": true,
+    "ReactDOM": true
   }
 }

@@ -28,6 +28,13 @@ module.exports = {
       loader: "html-loader"
     },
     {
+      test: /\.css$/,
+      use: ExtractTextPlugin.extract({
+        fallback: "style-loader",
+        use: ["css-loader"]
+      })
+    },
+    {
       test: /\.pug$/,
       loader: "pug-loader"
     },
@@ -37,6 +44,16 @@ module.exports = {
         fallback: "style-loader",
         use: ["css-loader", "resolve-url-loader", "sass-loader"]
       })
+    },
+    {
+      test: /\.jsx$/,
+      exclude: /(node_modules|bower_components)/,
+      use: {
+        loader: "babel-loader",
+        options: {
+          presets: ["env"]
+        }
+      }
     }]
   },
   plugins: [
@@ -44,6 +61,8 @@ module.exports = {
     //new HtmlWebpackPlugin({filename: "index.html", template: "./src/index.pug"}),
     new CleanWebpackPlugin(["dist"]),
     new webpack.ProvidePlugin({
+      React: "react",
+      ReactDOM: "react-dom",
       $: "jquery",
       jquery: "jquery",
       "window.jquery": "jquery",

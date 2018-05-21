@@ -1,8 +1,12 @@
 @import "~bootstrap/scss/bootstrap.scss";
-
+@import "~react-datetime/css/react-datetime.css";
 
 #freq {
 	border: 2px dashed black;
 	border-radius: 5px;
 	background-color: #666
+}
+
+.rdt {
+	display: inline-block;
 }
