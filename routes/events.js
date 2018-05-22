@@ -4,6 +4,7 @@ var ObjectID= require("mongodb").ObjectID;
 module.exports = function(dbclient) {
 
   router.post("/create", function(req, res) {
+    req.body.date = new Date(req.body.date);
     dbclient.then(function(client) {
       client.db("eurekafe").collection("event").insertOne(req.body, function(err) {
         if(err) res.send("1");
@@ -20,7 +21,6 @@ module.exports = function(dbclient) {
         res.send(data);
       });
     }).catch(function(err) {
-      console.log(err);
       res.send(err);
     });
   });
