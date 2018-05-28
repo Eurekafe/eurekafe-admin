@@ -5,7 +5,6 @@
 
 require("dotenv").config();
 
-const request = require("request");
 const express = require("express");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
@@ -34,12 +33,31 @@ var expressSession = session({
 });
 app.use(expressSession);
 
+const url = process.env.MONGO_CRED;
+var MongoClient = require("mongodb").MongoClient;
+var dbclient = MongoClient.connect(url);
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 passport.serializeUser(function(user, cb) {
-  cb(null, user);
+  dbclient.then((client) => {
+    client.db("eurekafe").collection("users").find({"fb_id": { $eq: user.id} }).toArray((err, response) => {
+      if(err) cb("Identification error =(");
+      if(response.length != 0) {
+        cb(null, response[0]);
+      } else {
+        client.db("eurekafe").collection("users").insertOne({"fb_id": user.id, "name": user.displayName}, (err, resp) => {
+          if(err) cb("Identification error =(");
+          let newUser = resp.ops[0];
+          newUser.id = user.id;
+          cb(null, newUser);
+        });
+      }    
+    });
+  });
 });
+
 passport.deserializeUser(function(user, done) {
   done(null, user);
 });
@@ -87,6 +105,7 @@ const frequentation = require("./routes/frequentation.js");
 app.use("/freq", frequentation);
 
 app.use(function(req, res, next) {
+  //identifie user
   if(req.user) {
     next();
   }
@@ -100,10 +119,11 @@ app.get("/logout", function(req, res) {
   res.redirect("/");
 });
 
-const url = process.env.MONGO_CRED;
-var MongoClient = require("mongodb").MongoClient;
+const main = require("./routes/main.js");
+app.use("/main", main);
 
-var dbclient = MongoClient.connect(url);
+
+// "APIs"
 
 const newsletter = require("./routes/newsletter.js")(dbclient);
 app.use("/newsletter", newsletter);
@@ -114,15 +134,8 @@ app.use("/articles", articles);
 const event = require("./routes/events.js")(dbclient);
 app.use("/events", event);
 
-app.get("/dashboard", function(req, res) {
-  res.render("main");
-});
 
-const main = require("./routes/main.js");
-
-app.use("/main", main);
-
-const port = process.env.PORT||3000;
+const port = process.env.PORT||3001;
 
 app.listen(port, function() {
   console.log("\x1b[32m", "app listening on port", port, "\x1b[0m");

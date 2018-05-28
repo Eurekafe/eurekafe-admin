@@ -3,7 +3,6 @@ var router = require("express").Router();
 var frequentation = null;
 
 router.get("/get", function(req,res) {
-  console.log(frequentation);
   res.send(frequentation);
 });
 
