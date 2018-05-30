@@ -16,7 +16,7 @@ module.exports = function(dbclient) {
   router.get("/all", function(req, res) {
     dbclient.then(function(client) {
       var collection = client.db("eurekafe").collection("event");
-      collection.find().toArray(function(err, data) {
+      collection.find().sort({date: -1}).toArray(function(err, data) {
         if(err) res.send(err);
         res.send(data);
       });
