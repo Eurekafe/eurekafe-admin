@@ -90,25 +90,26 @@ class event extends React.Component {
 	render() {
 		return(
 			<div>
-				<table className="mt-5"><tbody>
+				<table className="m-5"><tbody>
 					<tr>
-						<td><label className="mr-2">Titre</label></td>
-						<td><input onChange={this.titleChange} type="text" /></td>
+						<td className="p-2"><label className="mr-2">Titre</label></td>
+						<td><input onChange={this.titleChange} type="text" className="form-control" /></td>
 					</tr>
 					<tr>
-						<td><label className="mr-2">Description</label></td>
-						<td><textarea onChange={this.descChange} cols="50"></textarea></td>
+						<td className="p-2"><label className="mr-2">Description</label></td>
+						<td><textarea onChange={this.descChange} cols="100" rows="8" className="form-control"></textarea></td>
 					</tr>
 					<tr>
-						<td><label className="mr-2">Date</label></td>
+						<td className="p-2"><label className="mr-2">Date</label></td>
 						<td><DateTime onChange={this.dateChange} /></td>
 					</tr>
 					<tr>
-						<td><label className="mr-2">Lien</label></td>
-						<td><input type="text" onChange={this.linkChange} /></td>
+						<td className="p-2"><label className="mr-2">Lien</label></td>
+						<td><input type="text" onChange={this.linkChange} className="form-control" /></td>
 					</tr>
 					<tr>
-						<td><button onClick={this.submitEvent}>Ajouter</button></td>
+						<td className="p-2"></td>
+						<td><button onClick={this.submitEvent} className="btn btn-primary">Ajouter</button></td>
 					</tr>
 			
 				</tbody></table>
