@@ -88,6 +88,9 @@ class newsletter extends React.Component {
 							<input type="text" value={this.state.ajout} placeholder="email" onChange={this.handleChange} className="mr-2"/>
 							<a href="" onClick={(e) => this.insertEmail(e, this.state.ajout)}>Ajouter</a>
 						</p>
+						<h2>
+							<a href="/newsletter/newsletter-csv">Extract csv</a>
+						</h2>
 						<h2> Recherche </h2>
 						<p> À venir </p>
 					</div>

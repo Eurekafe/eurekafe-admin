@@ -13,7 +13,7 @@ module.exports = function(dbclient) {
     });
   });
 
-  router.get("/csv", function(req, res) {
+  router.get("/newsletter-csv", function(req, res) {
     dbclient.then(function(client) {
       client.db("eurekafe").collection("newsletter").find().toArray(function(err, data) {
         if(err) res.redirect("/error");
