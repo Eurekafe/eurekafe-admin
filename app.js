@@ -15,6 +15,15 @@ const facebookStrat = require("passport-facebook").Strategy;
 
 const app = express();
 
+app.get("*", function(req,res,next) {
+  if ( !req.headers.host.match(/localhost/)
+    && req.headers["x-forwarded-proto"] !== "https" ) {
+    res.redirect(301, "https://" + req.headers.host);
+  } else { 
+    next(); 
+  }
+});
+
 app.use(morgan("tiny"));
 
 app.set("view engine", "pug");
