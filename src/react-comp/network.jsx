@@ -1,5 +1,5 @@
 
-class network extends React.Component {
+export class network extends React.Component {
 	render() {
 		return(
 			<div>network</div>
@@ -7,5 +7,3 @@ class network extends React.Component {
 	}
 	
 } 
-
-module.exports = network;

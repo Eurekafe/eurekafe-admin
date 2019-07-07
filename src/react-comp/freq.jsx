@@ -1,5 +1,5 @@
 
-class freq extends React.Component {
+export class freq extends React.Component {
 	render() {
 		return(
 			<div>freq</div>
@@ -7,5 +7,3 @@ class freq extends React.Component {
 	}
 	
 } 
-
-module.exports = freq;

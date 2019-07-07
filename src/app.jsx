@@ -1,13 +1,13 @@
 
 import { BrowserRouter as Router, Link, Route } from "react-router-dom";
 
-var dash = require("./react-comp/dashboard.jsx");
-var event = require("./react-comp/event.jsx");
-var articles = require("./react-comp/articles.jsx");
-var freq = require("./react-comp/freq.jsx");
-var newsletter = require("./react-comp/newsletter.jsx");
-var network = require("./react-comp/network.jsx");
-
+import {dashboard} from "./react-comp/dashboard.jsx";
+import {event} from "./react-comp/event.jsx";
+import {articles} from "./react-comp/articles.jsx";
+import {freq} from "./react-comp/freq.jsx";
+import {newsletter} from "./react-comp/newsletter.jsx";
+import {network} from "./react-comp/network.jsx";
+ 
 class App extends React.Component {
 	render() {
 		return (
@@ -36,7 +36,7 @@ class App extends React.Component {
 	  						<button className="btn btn-danger" onClick={() => {window.location='/logout';}}>logout</button>
 	  					</div>
 	  				</nav>
-	  				<Route path="/main/dashboard" component={dash} />
+	  				<Route path="/main/dashboard" component={dashboard} />
   					<Route path="/main/events" component={event} />
   					<Route path="/main/articles" component={articles} />
   					<Route path="/main/freq" component={freq} />

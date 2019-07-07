@@ -1,6 +1,6 @@
 import DateTime from "react-datetime";
 
-class event extends React.Component {
+export class event extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
@@ -119,5 +119,3 @@ class event extends React.Component {
 	}
 	
 } 
-
-module.exports = event;

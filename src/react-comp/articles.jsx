@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom";
-
-class articles extends React.Component {
+  
+export class articles extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -34,5 +34,3 @@ class articles extends React.Component {
 	}
 	
 } 
-
-module.exports = articles;

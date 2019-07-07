@@ -1,5 +1,5 @@
 
-class newsletter extends React.Component {
+export class newsletter extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state={
@@ -100,5 +100,3 @@ class newsletter extends React.Component {
 	}
 	
 } 
-
-module.exports = newsletter;
