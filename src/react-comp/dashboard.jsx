@@ -62,14 +62,6 @@ export class dashboard extends React.Component {
 							</form>
 						</div>
 					</div>
-					<div className="row p-3">
-						<div className="col bg-light text-center p-3">
-							<h2>Twitter</h2>
-							<h3>last tweet</h3>
-							<h3>last retweet</h3>
-							<Link to="main/network" className="btn btn-primary mx-auto"> plus </Link>
-						</div>
-					</div>
 				</div>
 			</div>
 		);

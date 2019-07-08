@@ -6,9 +6,9 @@
   "scripts": {
     "postinstall": "npm run build",
     "build": "gulp build --gulpfile tasks",
-    "watch": "webpack --watch",
     "start": "node app.js",
-    "test": "mocha"
+    "test": "mocha",
+    "dev": "gulp dev --gulpfile tasks"
   },
   "repository": {
     "type": "git",

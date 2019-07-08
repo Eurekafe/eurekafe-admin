@@ -91,8 +91,6 @@ export class newsletter extends React.Component {
 						<h2>
 							<a href="/newsletter/newsletter-csv">Extract csv</a>
 						</h2>
-						<h2> Recherche </h2>
-						<p> À venir </p>
 					</div>
 				</div>
 			</div>

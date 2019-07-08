@@ -20,7 +20,6 @@ const passportConfig = require("./lib/passportConfig");
 const auth = require("./routes/auth");
 const main = require("./routes/main.js");
 const newsletter = require("./routes/newsletter.js");
-const articles = require("./routes/articles.js");
 const event = require("./routes/events.js");
 const frequentation = require("./routes/frequentation.js");
 
@@ -91,7 +90,6 @@ app.use("/main", main);
 
 // "APIs"
 app.use("/newsletter", newsletter(dbclient));
-app.use("/articles", articles(dbclient));
 app.use("/events", event(dbclient));
 
 
