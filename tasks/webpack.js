@@ -5,7 +5,7 @@ const CleanWebpackPlugin = require ("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 let config = {
-  mode: process.env.PORTNODE_ENV === "production" ? "production" : "development",
+  mode: process.env.NODE_ENV === "production" ? "production" : "development",
   context: path.resolve(__dirname, "../"),
   entry: {index: [
     path.resolve("./src/index.js"),

@@ -4,15 +4,6 @@ require("express-csv");
 
 module.exports = function(dbclient) {
 
-  router.get("/", function(req, res) {
-    dbclient.then(function(client) {
-      client.db("eurekafe").collection("newsletter").find().toArray(function(err, data) {
-        if(err) res.redirect("/error");
-        res.render("newsletter", {data});
-      });
-    });
-  });
-
   router.get("/newsletter-csv", function(req, res) {
     dbclient.then(function(client) {
       client.db("eurekafe").collection("newsletter").find().toArray(function(err, data) {
@@ -65,15 +56,6 @@ module.exports = function(dbclient) {
       client.db("eurekafe").collection("newsletter").insertOne({email: req.body.email}, function(err) {
         if(err) res.send("1");
         res.send("0");
-      });
-    });
-  });
-
-  router.post("/search", function(req, res) {
-    var regex = new RegExp(req.body.string);
-    dbclient.then(function(client) {
-      client.db("eurekafe").collection("newsletter").find({email: {$regex: regex}}).toArray(function(err, results) {
-        res.render("search", {results});
       });
     });
   });
