@@ -5,6 +5,7 @@ import {dashboard} from "./react-comp/dashboard.jsx";
 import {event} from "./react-comp/event.jsx";
 import {freq} from "./react-comp/freq.jsx";
 import {newsletter} from "./react-comp/newsletter.jsx";
+import {test} from "./react-comp/test.jsx";
  
 class App extends React.Component {
 	render() {
@@ -29,6 +30,7 @@ class App extends React.Component {
   					<Route path="/main/events" component={event} />
   					<Route path="/main/freq" component={freq} />
   					<Route path="/main/newsletter" component={newsletter} />
+  					<Route path="/main/test" component={test} />
   				</div>
   			</Router>
 		);
