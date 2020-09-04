@@ -29,7 +29,7 @@
     "express-csv": "^0.6.0",
     "express-session": "^1.15.6",
     "moment": "^2.22.1",
-    "mongodb": "^3.0.0-rc0",
+    "mongodb": "^3.1.13",
     "morgan": "^1.9.1",
     "nodemon": "^1.19.1",
     "passport": "^0.4.0",
