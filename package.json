@@ -35,7 +35,7 @@
     "passport": "^0.4.0",
     "passport-facebook": "^3.0.0",
     "passport-twitter": "^1.0.4",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "react-datetime": "^2.14.0",
     "uglifyjs-webpack-plugin": "^2.1.3"
   },
